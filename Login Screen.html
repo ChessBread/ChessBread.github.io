@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            text-align: center;
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #202124;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #1669c1;
+        }
+        .login-container a {
+            display: block;
+            margin-top: 20px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Sign in</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Email or phone" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Next">
+        </form>
+        <a href="Create Account Screen.html">Create account</a>
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+
+            let allowedUsers = JSON.parse(localStorage.getItem('allowedUsers')) || [];
+
+            const isValid = allowedUsers.some(cred => cred.username === username && cred.password === password);
+
+            if (isValid) {
+                alert('Login successful!');
+                // Redirect to Page 1.html after successful login
+                window.location.href = 'Page 1.html';
+            } else {
+                errorDiv.textContent = 'Invalid username or password';
+            }
+        });
+    </script>
+</body>
+</html>

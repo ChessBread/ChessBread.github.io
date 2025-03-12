@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confetti Animation</title>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif');
+            background-size: cover;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <button onclick="playAnimation()">Play Animation</button>
+        <div class="confetti" id="confetti"></div>
+    </div>
+
+    <script>
+        function playAnimation() {
+            const confetti = document.getElementById('confetti');
+            confetti.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'Reasons to use Linux.html';
+            }, 3000); // Duration of the confetti animation in milliseconds
+        }
+    </script>
+</body>
+</html>

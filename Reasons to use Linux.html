@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <title>Reasons to use Linux</title>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: 20px; /* Adjust the padding as needed */
+        }
+        .content {
+            margin-top: 0; /* Align content to the top */
+            text-align: center;
+        }
+        .number-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            font-size: 2em; /* Increase text size by 2x */
+        }
+        .number-list li {
+            margin: 10px 0;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+        }
+        .popup button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="content">
+            <h1>Reasons to use Linux</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/200px-Tux.svg.png" alt="Linux Penguin" style="width:200px;height:200px;">
+            <ol class="number-list">
+                <li>I say so</li>
+                <li>Dit is <b>maklik</b> om te gebruik, Volgens my. (Alden Esterhuizen)</li>
+                <li>It is customizable</li>
+                <li>Het FUN name</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <p>Will you use Linux?</p>
+        <button onclick="redirectTo('Yes.html')">Yes</button>
+        <button onclick="redirectTo('No.html')">No</button>
+    </div>
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+
+        setTimeout(function() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }, 30000); // 30 seconds in milliseconds
+    </script>
+</body>
+</html>

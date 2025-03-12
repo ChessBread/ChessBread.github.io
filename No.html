@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typical Apple/Windows User Animation</title>
+    <style>
+        .animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(217, 18, 18, 0.8);
+            color: rgb(7, 0, 0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            animation: fadeOut 12s forwards; /* Duration of the animation */
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation" id="animation">Typical Apple/Windows user</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animation = document.getElementById('animation');
+            animation.addEventListener('animationend', () => {
+                window.location.href = 'Login Screen.html'; // Redirect to the login screen
+            });
+        });
+    </script>
+</body>
+</html>

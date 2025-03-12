@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .create-account-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            text-align: center;
+        }
+        .create-account-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #202124;
+        }
+        .create-account-container input[type="text"],
+        .create-account-container input[type="password"],
+        .create-account-container input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .create-account-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .create-account-container input[type="submit"]:hover {
+            background-color: #1669c1;
+        }
+        .create-account-container a {
+            display: block;
+            margin-top: 20px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        .create-account-container a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="create-account-container">
+        <h1>Create your Google Account</h1>
+        <form id="createAccountForm">
+            <input type="text" id="first_name" placeholder="First name" required>
+            <input type="text" id="last_name" placeholder="Last name" required>
+            <input type="email" id="email" placeholder="Your email address" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="password" id="confirm_password" placeholder="Confirm password" required>
+            <input type="submit" value="Next">
+        </form>
+        <a href="Login Screen.html">Sign in instead</a>
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        document.getElementById('createAccountForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const errorDiv = document.getElementById('error');
+
+            if (password !== confirmPassword) {
+                errorDiv.textContent = 'Passwords do not match';
+                return;
+            }
+
+            let allowedUsers = JSON.parse(localStorage.getItem('allowedUsers')) || [];
+            allowedUsers.push({ username: email, password: password });
+            localStorage.setItem('allowedUsers', JSON.stringify(allowedUsers));
+
+            alert('Account created successfully!');
+            window.location.href = 'Login Screen.html';
+        });
+    </script>
+</body>
+</html>

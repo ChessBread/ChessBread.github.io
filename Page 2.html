@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiple Choice Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        .question-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 360px;
+            text-align: center;
+        }
+        .question-container h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #202124;
+        }
+        .question-container input[type="radio"] {
+            margin: 10px;
+        }
+        .question-container input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .question-container input[type="submit"]:hover {
+            background-color: #1669c1;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+        .timer {
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+        }
+        .restart-button {
+            display: none;
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .restart-button:hover {
+            background-color: #1669c1;
+        }
+        .next-page-button {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .next-page-button:hover {
+            background-color: #1669c1;
+        }
+    </style>
+</head>
+<body>
+    <button id="nextPageButton" class="next-page-button" onclick="location.href='Page 3.html'">Next Page</button>
+    <div class="question-container">
+        <h1>Solve the equation: 3^x - 5 = 81</h1>
+        <form id="questionForm">
+            <label>
+                <input type="radio" name="answer" value="7" required> 7
+            </label><br>
+            <label>
+                <input type="radio" name="answer" value="8"> 8
+            </label><br>
+            <label>
+                <input type="radio" name="answer" value="9"> 9
+            </label><br>
+            <label>
+                <input type="radio" name="answer" value="10"> 10
+            </label><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="result" class="result"></div>
+        <div id="timer" class="timer"></div>
+        <button id="restartButton" class="restart-button" onclick="restartQuiz()">Restart</button>
+    </div>
+
+    <audio id="beepSound" src="beep.mp3" preload="auto"></audio>
+
+    <script>
+        let timer;
+        let timeLeft = 60;
+
+        function startTimer() {
+            timer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('timer').textContent = 'Time is up!';
+                    document.getElementById('questionForm').querySelectorAll('input[type="radio"]').forEach(input => {
+                        input.disabled = true;
+                    });
+                    document.getElementById('questionForm').querySelector('input[type="submit"]').disabled = true;
+                    playBeepSound();
+                } else {
+                    document.getElementById('timer').textContent = `Time left: ${timeLeft} seconds`;
+                }
+                timeLeft -= 1;
+            }, 1000);
+        }
+
+        function playBeepSound() {
+            const beepSound = document.getElementById('beepSound');
+            beepSound.play();
+        }
+
+        function restartQuiz() {
+            timeLeft = Math.floor(timeLeft / 2);
+            document.getElementById('result').textContent = '';
+            document.getElementById('restartButton').style.display = 'none';
+            document.getElementById('questionForm').reset();
+            document.getElementById('questionForm').querySelectorAll('input[type="radio"]').forEach(input => {
+                input.disabled = false;
+            });
+            document.getElementById('questionForm').querySelector('input[type="submit"]').disabled = false;
+            startTimer();
+        }
+
+        document.getElementById('questionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearInterval(timer);
+            const answer = document.querySelector('input[name="answer"]:checked').value;
+            const resultDiv = document.getElementById('result');
+
+            if (answer === '9') {
+                resultDiv.textContent = 'Correct! The answer is 9.';
+                document.getElementById('nextPageButton').style.display = 'block';
+            } else {
+                resultDiv.textContent = 'Incorrect. Please try again.';
+                playBeepSound();
+                document.getElementById('restartButton').style.display = 'block';
+            }
+
+            document.getElementById('questionForm').querySelectorAll('input[type="radio"]').forEach(input => {
+                input.disabled = true;
+            });
+            document.getElementById('questionForm').querySelector('input[type="submit"]').disabled = true;
+        });
+
+        document.getElementById('questionForm').querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                document.getElementById('questionForm').querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.disabled = true;
+                });
+            });
+        });
+
+        // Start the timer when the page loads
+        startTimer();
+    </script>
+</body>
+</html>

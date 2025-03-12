@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Good Animation</title>
+    <style>
+        .good-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(22, 193, 13, 0.8);
+            color: rgb(58, 11, 176);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5em;
+            animation: fadeOut 12s forwards; /* Duration of the animation */
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="good-animation" id="goodAnimation">Good</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const goodAnimation = document.getElementById('goodAnimation');
+            goodAnimation.addEventListener('animationend', () => {
+                window.location.href = 'Login Screen.html'; // Redirect to the login screen
+            });
+        });
+    </script>
+</body>
+</html>
